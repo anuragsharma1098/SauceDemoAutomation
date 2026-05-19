@@ -7,7 +7,7 @@ import { VALID_CREDENTIALS } from '../test-data/login.data';
 import { SINGLE_PRODUCT, MULTI_PRODUCTS, PRODUCTS } from '../test-data/products.data';
 
 /**
- * Shared login helper — avoids duplicating login steps across tests.
+ * Shared login helper — avoids duplicating login steps across tests.   
  */
 async function loginAndNavigate(page: Page): Promise<{
   inventoryPage: InventoryPage;

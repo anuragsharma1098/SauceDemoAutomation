@@ -8,6 +8,8 @@
     "resolveJsonModule": true,
     "outDir": "./dist",
     "baseUrl": ".",
+    "moduleResolution": "node",
+    "types": ["node"],
     "paths": {
       "@pages/*": ["pages/*"],
       "@utils/*": ["utils/*"],

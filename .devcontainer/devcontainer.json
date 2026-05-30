@@ -1,0 +1,49 @@
+{
+  "name": "SauceDemo Automation",
+  "image": "mcr.microsoft.com/playwright:v1.60.0",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "17"
+    },
+    "ghcr.io/devcontainers/features/git:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-playwright.playwright",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-next",
+        "orta.vscode-jest",
+        "Gruntfuggly.todo-tree",
+        "GitHub.copilot"
+      ],
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[json]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
+      }
+    }
+  },
+  "postCreateCommand": "npm install",
+  "remoteUser": "pwuser",
+  "forwardPorts": [3000, 9000],
+  "portsAttributes": {
+    "3000": {
+      "label": "App Server",
+      "onAutoForward": "notify"
+    },
+    "9000": {
+      "label": "Allure Report",
+      "onAutoForward": "notify"
+    }
+  }
+}

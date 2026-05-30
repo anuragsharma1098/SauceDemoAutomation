@@ -14,6 +14,7 @@ A scalable, CI-ready end-to-end automation framework for [https://www.saucedemo.
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Running Tests](#running-tests)
+- [Code Quality & Formatting](#code-quality--formatting)
 - [Allure Reporting](#allure-reporting)
 - [Test Coverage](#test-coverage)
 - [Framework Design Decisions](#framework-design-decisions)
@@ -214,7 +215,132 @@ npm run test:ci
 
 ---
 
-## Allure Reporting
+## Code Quality & Formatting
+
+This project uses **Prettier**, **ESLint**, and **TypeScript** to maintain code quality and consistency.
+
+### Type Checking
+
+Validate TypeScript types without compiling:
+
+```bash
+npm run type-check
+```
+
+**What it does:**
+- Runs TypeScript compiler in check-only mode (`tsc --noEmit`)
+- Detects type errors in all `.ts` and `.tsx` files
+- Provides early feedback on type safety issues
+- No files are generated; the build is not modified
+
+---
+
+### Code Formatting with Prettier
+
+#### Check formatting
+
+```bash
+npm run format:check
+```
+
+**What it does:**
+- Scans all project files for formatting violations
+- Compares against Prettier's opinionated style rules
+- Reports files that need formatting (does not modify them)
+- Exit code 1 if issues found, 0 if all files are formatted
+
+#### Auto-fix formatting
+
+```bash
+npm run format:fix
+```
+
+**What it does:**
+- Automatically reformats all files to match Prettier rules
+- Updates files in-place
+- Applies consistent code style (line width, quotes, semicolons, indentation)
+- Safe to run before committing code
+
+**Prettier Configuration (`.prettierrc.json`):**
+- **Print Width:** 100 characters
+- **Tab Width:** 2 spaces
+- **Quotes:** Single quotes
+- **Semicolons:** Yes
+- **Trailing Commas:** ES5 style
+
+---
+
+### Linting with ESLint
+
+#### Check code quality
+
+```bash
+npm run lint
+```
+
+**What it does:**
+- Analyzes TypeScript files for code quality issues
+- Detects unused variables, potential bugs, and style violations
+- Reports errors and warnings without modifying code
+- Exit code 0 if no errors, 1 if errors found
+
+#### Auto-fix linting issues
+
+```bash
+npm run lint:fix
+```
+
+**What it does:**
+- Automatically fixes fixable ESLint violations
+- Removes unused imports, fixes formatting, applies rules
+- Updates files in-place
+- Some issues may still require manual fixes
+
+**ESLint Configuration (`eslint.config.js`):**
+- **Parser:** TypeScript ESLint Parser
+- **Rules:** Extends ESLint recommended + TypeScript strict rules
+- **Key Rules:**
+  - Unused variables → warnings (prefixed with `_` are ignored)
+  - `any` types → warnings
+  - `console.log()` → warnings (console.error/warn allowed)
+
+---
+
+### Running all checks together
+
+To run type check, format check, and lint all at once:
+
+```bash
+npm run type-check && npm run format:check && npm run lint
+```
+
+Or create a pre-commit hook (recommended for CI pipelines):
+
+```bash
+# Type check first (fastest)
+npm run type-check
+
+# Then format check (catches whitespace issues)
+npm run format:check
+
+# Then lint (most thorough)
+npm run lint
+```
+
+**Recommended workflow before committing:**
+
+```bash
+# 1. Fix formatting issues
+npm run format:fix
+
+# 2. Fix auto-fixable lint issues
+npm run lint:fix
+
+# 3. Run all checks to verify
+npm run type-check && npm run format:check && npm run lint
+```
+
+---
 
 ### Step 1 — Run tests (generates raw results)
 

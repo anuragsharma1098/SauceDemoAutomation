@@ -25,18 +25,18 @@ A scalable, CI-ready end-to-end automation framework for [https://www.saucedemo.
 
 ## Framework Overview
 
-| Feature | Implementation |
-|---|---|
-| Test Runner | Playwright Test |
-| Language | TypeScript |
-| Design Pattern | Page Object Model (POM) |
-| Reporting | Allure |
-| Parallel Execution | Yes (configurable workers) |
+| Feature             | Implementation                             |
+| ------------------- | ------------------------------------------ |
+| Test Runner         | Playwright Test                            |
+| Language            | TypeScript                                 |
+| Design Pattern      | Page Object Model (POM)                    |
+| Reporting           | Allure                                     |
+| Parallel Execution  | Yes (configurable workers)                 |
 | Tag-based Execution | `@smoke`, `@regression`, `@login`, `@cart` |
-| Data-driven Tests | Yes (separate test-data layer) |
-| Session Reuse | Auth helper for efficient setup |
-| CI Integration | GitHub Actions |
-| Retry Mechanism | 1 retry locally, 2 retries in CI |
+| Data-driven Tests   | Yes (separate test-data layer)             |
+| Session Reuse       | Auth helper for efficient setup            |
+| CI Integration      | GitHub Actions                             |
+| Retry Mechanism     | 1 retry locally, 2 retries in CI           |
 
 ---
 
@@ -146,14 +146,14 @@ PASSWORD=secret_sauce
 
 Key settings:
 
-| Setting | Value | Description |
-|---|---|---|
-| `fullyParallel` | `true` | All tests run in parallel |
-| `workers` | `2` (local) / `4` (CI) | Concurrent workers |
-| `retries` | `1` (local) / `2` (CI) | Auto-retry on failure |
-| `screenshot` | `only-on-failure` | Captured in Allure on failure |
-| `trace` | `retain-on-failure` | Trace viewer on failure |
-| `timeout` | `30s` | Per-test timeout |
+| Setting         | Value                  | Description                   |
+| --------------- | ---------------------- | ----------------------------- |
+| `fullyParallel` | `true`                 | All tests run in parallel     |
+| `workers`       | `2` (local) / `4` (CI) | Concurrent workers            |
+| `retries`       | `1` (local) / `2` (CI) | Auto-retry on failure         |
+| `screenshot`    | `only-on-failure`      | Captured in Allure on failure |
+| `trace`         | `retain-on-failure`    | Trace viewer on failure       |
+| `timeout`       | `30s`                  | Per-test timeout              |
 
 ---
 
@@ -228,6 +228,7 @@ npm run type-check
 ```
 
 **What it does:**
+
 - Runs TypeScript compiler in check-only mode (`tsc --noEmit`)
 - Detects type errors in all `.ts` and `.tsx` files
 - Provides early feedback on type safety issues
@@ -244,6 +245,7 @@ npm run format:check
 ```
 
 **What it does:**
+
 - Scans all project files for formatting violations
 - Compares against Prettier's opinionated style rules
 - Reports files that need formatting (does not modify them)
@@ -256,12 +258,14 @@ npm run format:fix
 ```
 
 **What it does:**
+
 - Automatically reformats all files to match Prettier rules
 - Updates files in-place
 - Applies consistent code style (line width, quotes, semicolons, indentation)
 - Safe to run before committing code
 
 **Prettier Configuration (`.prettierrc.json`):**
+
 - **Print Width:** 100 characters
 - **Tab Width:** 2 spaces
 - **Quotes:** Single quotes
@@ -279,6 +283,7 @@ npm run lint
 ```
 
 **What it does:**
+
 - Analyzes TypeScript files for code quality issues
 - Detects unused variables, potential bugs, and style violations
 - Reports errors and warnings without modifying code
@@ -291,12 +296,14 @@ npm run lint:fix
 ```
 
 **What it does:**
+
 - Automatically fixes fixable ESLint violations
 - Removes unused imports, fixes formatting, applies rules
 - Updates files in-place
 - Some issues may still require manual fixes
 
 **ESLint Configuration (`eslint.config.js`):**
+
 - **Parser:** TypeScript ESLint Parser
 - **Rules:** Extends ESLint recommended + TypeScript strict rules
 - **Key Rules:**
@@ -396,97 +403,114 @@ npm run allure:serve
 ### Login Tests (`tests/login.spec.ts`)
 
 #### Positive Scenarios
-| Test | Tag |
-|---|---|
-| Successful login with valid credentials | `@smoke` |
-| Login logo is displayed on login page | `@regression` |
-| Login form elements render correctly | `@regression` |
-| Logout redirects to login page | `@regression` |
+
+| Test                                    | Tag           |
+| --------------------------------------- | ------------- |
+| Successful login with valid credentials | `@smoke`      |
+| Login logo is displayed on login page   | `@regression` |
+| Login form elements render correctly    | `@regression` |
+| Logout redirects to login page          | `@regression` |
 
 #### Negative Scenarios — Invalid Credentials (data-driven)
-| Test | Tag |
-|---|---|
+
+| Test                             | Tag           |
+| -------------------------------- | ------------- |
 | Wrong username, correct password | `@regression` |
 | Correct username, wrong password | `@regression` |
 | Both username and password wrong | `@regression` |
 
 #### Negative Scenarios — Empty Fields (data-driven)
-| Test | Tag |
-|---|---|
+
+| Test                 | Tag           |
+| -------------------- | ------------- |
 | Empty username field | `@regression` |
 | Empty password field | `@regression` |
-| Both fields empty | `@regression` |
+| Both fields empty    | `@regression` |
 
 #### Edge Cases
-| Test | Tag |
-|---|---|
-| Locked out user shows error | `@regression` |
-| Dismiss error via X button | `@regression` |
+
+| Test                             | Tag           |
+| -------------------------------- | ------------- |
+| Locked out user shows error      | `@regression` |
+| Dismiss error via X button       | `@regression` |
 | Session invalidated after logout | `@regression` |
-| Whitespace-only credentials | `@regression` |
+| Whitespace-only credentials      | `@regression` |
 | SQL injection handled gracefully | `@regression` |
-| Very long input strings | `@regression` |
+| Very long input strings          | `@regression` |
 
 ---
 
 ### Cart Tests (`tests/cart.spec.ts`)
 
 #### Add to Cart
-| Test | Tag |
-|---|---|
-| Add single product updates badge to 1 | `@smoke` |
+
+| Test                                         | Tag           |
+| -------------------------------------------- | ------------- |
+| Add single product updates badge to 1        | `@smoke`      |
 | Add multiple products reflects correct badge | `@regression` |
-| Button changes to Remove after adding | `@regression` |
+| Button changes to Remove after adding        | `@regression` |
 
 #### Cart Page Validation
-| Test | Tag |
-|---|---|
-| Correct product name displayed in cart | `@smoke` |
+
+| Test                                    | Tag           |
+| --------------------------------------- | ------------- |
+| Correct product name displayed in cart  | `@smoke`      |
 | Correct product price displayed in cart | `@regression` |
-| All added products appear in cart | `@regression` |
-| Empty cart shows no items | `@regression` |
+| All added products appear in cart       | `@regression` |
+| Empty cart shows no items               | `@regression` |
 
 #### Remove from Cart
-| Test | Tag |
-|---|---|
-| Remove product from cart page updates count | `@smoke` |
+
+| Test                                        | Tag           |
+| ------------------------------------------- | ------------- |
+| Remove product from cart page updates count | `@smoke`      |
 | Remove one of two products decrements badge | `@regression` |
-| Remove product from inventory page | `@regression` |
-| Remove all items clears badge | `@regression` |
-| Continue Shopping returns to inventory | `@regression` |
+| Remove product from inventory page          | `@regression` |
+| Remove all items clears badge               | `@regression` |
+| Continue Shopping returns to inventory      | `@regression` |
 
 ---
 
 ## Framework Design Decisions
 
 ### Page Object Model (POM)
+
 Each page of the application has its own class in `pages/`. This ensures:
+
 - Locators are defined once and reused everywhere
 - Test files remain clean and readable
 - Changes to the UI require updating only one file
 
 ### `BasePage` abstract class
+
 All page objects extend `BasePage`, which provides shared methods (`navigate`, `getTitle`, `getCurrentUrl`). This avoids code duplication and enforces a consistent interface.
 
 ### Separation of test data
+
 Test data (credentials, product names/prices, error messages) lives in `test-data/`. Tests import data rather than embedding strings. Benefits:
+
 - Updating values requires touching one file
 - Data-driven tests are straightforward to extend
 - Test files focus on behaviour, not data
 
 ### No hard-coded waits
+
 `waitForTimeout()` is never used. All waits use Playwright's built-in auto-wait mechanisms, `waitFor({ state })`, `waitForURL()`, and `expect()` assertions which retry internally.
 
 ### Stable locators
+
 All locators use `data-test` attributes (`[data-test="username"]`), which are purpose-built for automation and resistant to style/structure changes.
 
 ### Tag-based execution
+
 Tests are tagged with `@smoke` and `@regression` to support tiered CI pipelines — run smoke on every commit and full regression on merges or nightly.
 
 ### Allure step annotations
+
 Tests use `allure.step()` to produce structured, human-readable reports. Each test tells a story through its steps.
 
 ### Session reuse (auth.helper.ts)
+
 The `createAuthenticatedContext` utility logs in once and reuses the browser context across tests that need an authenticated state — avoiding redundant login steps in large suites.
 
 ---
@@ -512,5 +536,6 @@ The included `.github/workflows/playwright.yml` pipeline:
 5. Uploads Playwright `test-results/` (screenshots, videos, traces) on failure.
 
 To use with your own GitHub repository:
+
 - No secrets required for default SauceDemo credentials.
 - To override, add `BASE_URL` and `PASSWORD` as GitHub repository secrets.

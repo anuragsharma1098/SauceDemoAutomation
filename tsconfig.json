@@ -8,7 +8,8 @@
     "resolveJsonModule": true,
     "outDir": "./dist",
     "baseUrl": ".",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
+    "ignoreDeprecations": "6.0",
     "types": ["node"],
     "paths": {
       "@pages/*": ["pages/*"],

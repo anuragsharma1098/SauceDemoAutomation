@@ -42,7 +42,7 @@ test.describe('Login Functionality', () => {
           await expect(inventoryPage.pageTitle).toBeVisible();
           await expect(inventoryPage.pageTitle).toHaveText('Products');
         });
-      },
+      }
     );
 
     test(
@@ -53,7 +53,7 @@ test.describe('Login Functionality', () => {
           await expect(loginPage.loginLogo).toBeVisible();
           await expect(loginPage.loginLogo).toHaveText('Swag Labs');
         });
-      },
+      }
     );
 
     test(
@@ -70,7 +70,7 @@ test.describe('Login Functionality', () => {
           await expect(loginPage.loginButton).toBeVisible();
           await expect(loginPage.loginButton).toHaveValue('Login');
         });
-      },
+      }
     );
 
     test(
@@ -91,7 +91,7 @@ test.describe('Login Functionality', () => {
           await expect(page).toHaveURL('/');
           await expect(loginPage.loginButton).toBeVisible();
         });
-      },
+      }
     );
   });
 
@@ -99,29 +99,25 @@ test.describe('Login Functionality', () => {
 
   test.describe('Negative Scenarios - Invalid Credentials', () => {
     for (const { description, username, password, expectedError } of INVALID_CREDENTIALS_CASES) {
-      test(
-        `should show error for ${description}`,
-        { tag: ['@regression', '@login'] },
-        async () => {
-          await allure.step(`Enter credentials: ${description}`, async () => {
-            await loginPage.login(username, password);
-          });
+      test(`should show error for ${description}`, { tag: ['@regression', '@login'] }, async () => {
+        await allure.step(`Enter credentials: ${description}`, async () => {
+          await loginPage.login(username, password);
+        });
 
-          await allure.step('Verify error message is displayed', async () => {
-            await expect(loginPage.errorMessage).toBeVisible();
-          });
+        await allure.step('Verify error message is displayed', async () => {
+          await expect(loginPage.errorMessage).toBeVisible();
+        });
 
-          await allure.step('Verify correct error message text', async () => {
-            const errorText = await loginPage.getErrorMessage();
-            expect(errorText).toContain(expectedError);
-          });
+        await allure.step('Verify correct error message text', async () => {
+          const errorText = await loginPage.getErrorMessage();
+          expect(errorText).toContain(expectedError);
+        });
 
-          await allure.step('Verify error icon is visible on input fields', async () => {
-            await expect(loginPage.usernameInput).toHaveClass(/error/);
-            await expect(loginPage.passwordInput).toHaveClass(/error/);
-          });
-        },
-      );
+        await allure.step('Verify error icon is visible on input fields', async () => {
+          await expect(loginPage.usernameInput).toHaveClass(/error/);
+          await expect(loginPage.passwordInput).toHaveClass(/error/);
+        });
+      });
     }
   });
 
@@ -140,7 +136,7 @@ test.describe('Login Functionality', () => {
             const errorText = await loginPage.getErrorMessage();
             expect(errorText).toContain(expectedError);
           });
-        },
+        }
       );
     }
   });
@@ -165,7 +161,7 @@ test.describe('Login Functionality', () => {
         await allure.step('Verify user stays on login page', async () => {
           await expect(page).toHaveURL('/');
         });
-      },
+      }
     );
 
     test(
@@ -184,7 +180,7 @@ test.describe('Login Functionality', () => {
         await allure.step('Verify error message is no longer visible', async () => {
           await expect(loginPage.errorMessage).not.toBeVisible();
         });
-      },
+      }
     );
 
     test(
@@ -207,7 +203,7 @@ test.describe('Login Functionality', () => {
           // Should be redirected back to login
           await expect(page).toHaveURL('/');
         });
-      },
+      }
     );
 
     test(
@@ -221,14 +217,14 @@ test.describe('Login Functionality', () => {
         await allure.step('Verify error message is displayed', async () => {
           await expect(loginPage.errorMessage).toBeVisible();
         });
-      },
+      }
     );
 
     test(
       'should handle SQL injection attempt gracefully',
       { tag: ['@regression', '@login'] },
       async ({ page }) => {
-        await allure.step("Submit SQL injection payload as credentials", async () => {
+        await allure.step('Submit SQL injection payload as credentials', async () => {
           await loginPage.login("' OR '1'='1", "' OR '1'='1");
         });
 
@@ -236,7 +232,7 @@ test.describe('Login Functionality', () => {
           await expect(page).toHaveURL('/');
           await expect(loginPage.errorMessage).toBeVisible();
         });
-      },
+      }
     );
 
     test(
@@ -253,7 +249,7 @@ test.describe('Login Functionality', () => {
           await expect(page).toHaveURL('/');
           await expect(loginPage.errorMessage).toBeVisible();
         });
-      },
+      }
     );
   });
 });

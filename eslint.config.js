@@ -15,8 +15,8 @@ export default [
       'coverage',
       '.env',
       '.env.example',
-      'playwright-report'
-    ]
+      'playwright-report',
+    ],
   },
   {
     files: ['**/*.ts', '**/*.tsx'],
@@ -25,21 +25,21 @@ export default [
       parserOptions: {
         ecmaVersion: 2020,
         sourceType: 'module',
-        project: './tsconfig.json'
+        project: './tsconfig.json',
       },
       globals: {
-        ...globals.node
-      }
+        ...globals.node,
+      },
     },
     plugins: {
-      '@typescript-eslint': tsPlugin
+      '@typescript-eslint': tsPlugin,
     },
     rules: {
       ...js.configs.recommended.rules,
       ...tsPlugin.configs.recommended.rules,
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       '@typescript-eslint/no-explicit-any': 'warn',
-      'no-console': ['warn', { allow: ['warn', 'error'] }]
-    }
-  }
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+    },
+  },
 ];

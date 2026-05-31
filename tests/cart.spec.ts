@@ -7,7 +7,7 @@ import { VALID_CREDENTIALS } from '../test-data/login.data';
 import { SINGLE_PRODUCT, MULTI_PRODUCTS, PRODUCTS } from '../test-data/products.data';
 
 /**
- * Shared login helper — avoids duplicating login steps across tests.   
+ * Shared login helper — avoids duplicating login steps across tests.
  */
 async function loginAndNavigate(page: Page): Promise<{
   inventoryPage: InventoryPage;
@@ -46,7 +46,7 @@ test.describe('Cart Functionality', () => {
           await expect(inventoryPage.cartBadge).toBeVisible();
           await expect(inventoryPage.cartBadge).toHaveText('1');
         });
-      },
+      }
     );
 
     test(
@@ -64,7 +64,7 @@ test.describe('Cart Functionality', () => {
         await allure.step(`Verify badge shows count of ${MULTI_PRODUCTS.length}`, async () => {
           await expect(inventoryPage.cartBadge).toHaveText(String(MULTI_PRODUCTS.length));
         });
-      },
+      }
     );
 
     test(
@@ -81,7 +81,7 @@ test.describe('Cart Functionality', () => {
           const buttonText = await inventoryPage.getAddButtonTextForProduct(SINGLE_PRODUCT.name);
           expect(buttonText.toLowerCase()).toContain('remove');
         });
-      },
+      }
     );
   });
 
@@ -109,7 +109,7 @@ test.describe('Cart Functionality', () => {
           const names = await cartPage.getProductNames();
           expect(names).toContain(SINGLE_PRODUCT.name);
         });
-      },
+      }
     );
 
     test(
@@ -127,7 +127,7 @@ test.describe('Cart Functionality', () => {
           const prices = await cartPage.getProductPrices();
           expect(prices).toContain(SINGLE_PRODUCT.price);
         });
-      },
+      }
     );
 
     test(
@@ -152,7 +152,7 @@ test.describe('Cart Functionality', () => {
             expect(names).toContain(product.name);
           }
         });
-      },
+      }
     );
 
     test(
@@ -168,7 +168,7 @@ test.describe('Cart Functionality', () => {
         await allure.step('Verify cart is empty', async () => {
           await expect(cartPage.cartItems).toHaveCount(0);
         });
-      },
+      }
     );
   });
 
@@ -202,7 +202,7 @@ test.describe('Cart Functionality', () => {
           // toHaveCount retries — DOM-safe after remove
           await expect(cartPage.cartItems).toHaveCount(0);
         });
-      },
+      }
     );
 
     test(
@@ -230,7 +230,7 @@ test.describe('Cart Functionality', () => {
         await allure.step('Verify only one item remains in cart', async () => {
           await expect(cartPage.cartItems).toHaveCount(1);
         });
-      },
+      }
     );
 
     test(
@@ -256,7 +256,7 @@ test.describe('Cart Functionality', () => {
           const buttonText = await inventoryPage.getAddButtonTextForProduct(SINGLE_PRODUCT.name);
           expect(buttonText.toLowerCase()).toContain('add to cart');
         });
-      },
+      }
     );
 
     test(
@@ -285,7 +285,7 @@ test.describe('Cart Functionality', () => {
           await expect(cartPage.cartItems).toHaveCount(0);
           await expect(inventoryPage.cartBadge).not.toBeVisible();
         });
-      },
+      }
     );
 
     test(
@@ -308,7 +308,7 @@ test.describe('Cart Functionality', () => {
           const isLoaded = await inventoryPage.isLoaded();
           expect(isLoaded).toBe(true);
         });
-      },
+      }
     );
   });
 });

@@ -1,4 +1,4 @@
-import { Page, Locator, expect } from '@playwright/test';
+import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class CartPage extends BasePage {
@@ -31,15 +31,11 @@ export class CartPage extends BasePage {
   }
 
   async getProductNames(): Promise<string[]> {
-    return this.page
-      .locator('[data-test="inventory-item-name"]')
-      .allTextContents();
+    return this.page.locator('[data-test="inventory-item-name"]').allTextContents();
   }
 
   async getProductPrices(): Promise<string[]> {
-    return this.page
-      .locator('[data-test="inventory-item-price"]')
-      .allTextContents();
+    return this.page.locator('[data-test="inventory-item-price"]').allTextContents();
   }
 
   /**

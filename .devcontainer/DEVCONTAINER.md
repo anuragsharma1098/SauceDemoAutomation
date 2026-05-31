@@ -5,6 +5,7 @@ This project includes a **Development Container (devcontainer)** configuration f
 ## What is a Dev Container?
 
 A dev container is a containerized development environment that:
+
 - ✅ Provides a consistent setup across all developers
 - ✅ Eliminates "works on my machine" problems
 - ✅ Includes all required tools pre-installed
@@ -16,9 +17,11 @@ A dev container is a containerized development environment that:
 ### 1. Install Docker
 
 **Windows / macOS:**
+
 - Download and install [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
 **Linux:**
+
 ```bash
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
@@ -27,12 +30,14 @@ sudo sh get-docker.sh
 ### 2. Install VS Code Extension
 
 Install the **Dev Containers** extension in VS Code:
+
 - Open VS Code
 - Go to Extensions (Ctrl+Shift+X)
 - Search for "Dev Containers"
 - Install the official Microsoft extension
 
 Or install from CLI:
+
 ```bash
 code --install-extension ms-vscode-remote.remote-containers
 ```
@@ -40,9 +45,11 @@ code --install-extension ms-vscode-remote.remote-containers
 ### 3. Ensure Docker is Running
 
 **Windows/macOS:**
+
 - Open Docker Desktop and keep it running
 
 **Linux:**
+
 ```bash
 sudo systemctl start docker
 ```
@@ -54,6 +61,7 @@ sudo systemctl start docker
 #### Option 1: VS Code Remote Container (Recommended)
 
 1. **Open the project in VS Code**
+
    ```bash
    code .
    ```
@@ -117,20 +125,20 @@ The dev container has been tested and verified:
 
 ## What's Included in the Dev Container?
 
-| Component | Version | Status | Purpose |
-|-----------|---------|--------|---------|
-| **Playwright** | 1.60.0 | ✅ Verified | Official Playwright Docker image with all browsers |
-| Chromium | Latest | ✅ Included | Headless browser for automation |
-| Firefox | Latest | ✅ Included | Headless browser for automation |
-| WebKit | Latest | ✅ Included | Headless browser for automation |
-| Node.js | 20 (LTS) | ✅ Verified | JavaScript/TypeScript runtime |
-| npm | Latest | ✅ Verified | Package manager |
-| TypeScript | Latest | ✅ Verified | Type-safe development |
-| Java | 17 | ✅ Verified | Required for Allure CLI |
-| Allure CLI | 2.42.0 | ✅ Verified | Report generation |
-| Git | Latest | ✅ Included | Version control |
-| ESLint | v10 | ✅ Verified | Code linting |
-| Prettier | v3 | ✅ Verified | Code formatting |
+| Component      | Version  | Status      | Purpose                                            |
+| -------------- | -------- | ----------- | -------------------------------------------------- |
+| **Playwright** | 1.60.0   | ✅ Verified | Official Playwright Docker image with all browsers |
+| Chromium       | Latest   | ✅ Included | Headless browser for automation                    |
+| Firefox        | Latest   | ✅ Included | Headless browser for automation                    |
+| WebKit         | Latest   | ✅ Included | Headless browser for automation                    |
+| Node.js        | 20 (LTS) | ✅ Verified | JavaScript/TypeScript runtime                      |
+| npm            | Latest   | ✅ Verified | Package manager                                    |
+| TypeScript     | Latest   | ✅ Verified | Type-safe development                              |
+| Java           | 17       | ✅ Verified | Required for Allure CLI                            |
+| Allure CLI     | 2.42.0   | ✅ Verified | Report generation                                  |
+| Git            | Latest   | ✅ Included | Version control                                    |
+| ESLint         | v10      | ✅ Verified | Code linting                                       |
+| Prettier       | v3       | ✅ Verified | Code formatting                                    |
 
 ## VS Code Extensions Included
 
@@ -300,6 +308,7 @@ docker-compose -f .devcontainer/docker-compose.yml exec devcontainer bash
 **Issue:** Docker build fails during `npm install`
 
 **Solution:**
+
 1. Rebuild the container
 2. Clear npm cache: `npm cache clean --force`
 3. Delete `node_modules` and `package-lock.json`, rebuild
@@ -330,8 +339,8 @@ npx playwright install --with-deps chromium firefox webkit
 
 ```yml
 ports:
-  - "3001:3000"   # Local 3001 → Container 3000
-  - "9001:9000"   # Local 9001 → Container 9000
+  - '3001:3000' # Local 3001 → Container 3000
+  - '9001:9000' # Local 9001 → Container 9000
 ```
 
 ### Permission denied errors
@@ -351,6 +360,7 @@ volumes:
 **Issue:** Docker containers/images using too much disk
 
 **Solution:**
+
 ```bash
 # Clean up unused containers and images
 docker system prune -a
@@ -359,6 +369,7 @@ docker system prune -a
 ## Performance Tips
 
 1. **Enable buildkit for faster builds:**
+
    ```bash
    export DOCKER_BUILDKIT=1
    ```

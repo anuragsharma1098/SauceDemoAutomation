@@ -14,7 +14,7 @@ export async function createAuthenticatedContext(browser: Browser): Promise<Brow
   await loginPage.goto();
   await loginPage.login(
     ENV.credentials.standardUser.username,
-    ENV.credentials.standardUser.password,
+    ENV.credentials.standardUser.password
   );
 
   // Wait for successful navigation to inventory

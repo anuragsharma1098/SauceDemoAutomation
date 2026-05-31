@@ -43,12 +43,12 @@ export class LoginPage extends BasePage {
   }
 
   async isUsernameBorderRed(): Promise<boolean> {
-    const classes = await this.usernameInput.getAttribute('class') || '';
+    const classes = (await this.usernameInput.getAttribute('class')) || '';
     return classes.includes('error');
   }
 
   async isPasswordBorderRed(): Promise<boolean> {
-    const classes = await this.passwordInput.getAttribute('class') || '';
+    const classes = (await this.passwordInput.getAttribute('class')) || '';
     return classes.includes('error');
   }
 }

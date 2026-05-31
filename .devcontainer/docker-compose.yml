@@ -7,28 +7,28 @@ services:
       dockerfile: Dockerfile
     image: saucedemo-automation-dev:latest
     container_name: saucedemo-dev
-    
+
     # Mount the workspace
     volumes:
       - ..:/workspace:cached
       - node_modules:/workspace/node_modules
-    
+
     # Working directory
     working_dir: /workspace
-    
+
     # Keep container running
     stdin_open: true
     tty: true
-    
+
     # Environment variables
     environment:
       NODE_ENV: development
-    
+
     # Expose ports
     ports:
-      - "3000:3000"   # App server
-      - "9000:9000"   # Allure report
-    
+      - '3000:3000' # App server
+      - '9000:9000' # Allure report
+
     # Override entrypoint
     command: /bin/bash
 

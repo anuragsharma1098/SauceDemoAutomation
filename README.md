@@ -2,7 +2,7 @@
 
 > Playwright + Allure Reporting · TypeScript · Page Object Model
 
-A scalable, CI-ready end-to-end automation framework for [https://www.saucedemo.com](https://www.saucedemo.com), covering Login and Cart functionality with full Allure reporting integration.
+A scalable, CI-ready end-to-end automation framework for [https://www.saucedemo.com](https://www.saucedemo.com), covering Login, Cart, and Checkout functionality with full Allure reporting integration.
 
 ---
 
@@ -25,18 +25,18 @@ A scalable, CI-ready end-to-end automation framework for [https://www.saucedemo.
 
 ## Framework Overview
 
-| Feature             | Implementation                                     |
-| ------------------- | -------------------------------------------------- |
-| Test Runner         | Playwright Test                                    |
-| Language            | TypeScript                                         |
-| Design Pattern      | Page Object Model (POM)                            |
-| Reporting           | Allure                                             |
-| Parallel Execution  | Yes (configurable workers)                         |
-| Tag-based Execution | `@smoke`, `@regression`, `@login`, `@cart` |
-| Data-driven Tests   | Yes (separate test-data layer)                     |
-| Session Reuse       | Auth helper for efficient setup                    |
-| CI Integration      | GitHub Actions                                     |
-| Retry Mechanism     | 1 retry locally, 2 retries in CI                   |
+| Feature             | Implementation                                          |
+| ------------------- | ------------------------------------------------------- |
+| Test Runner         | Playwright Test                                         |
+| Language            | TypeScript                                              |
+| Design Pattern      | Page Object Model (POM)                                 |
+| Reporting           | Allure                                                  |
+| Parallel Execution  | Yes (configurable workers)                              |
+| Tag-based Execution | `@smoke`, `@regression`, `@login`, `@cart`, `@checkout` |
+| Data-driven Tests   | Yes (separate test-data layer)                          |
+| Session Reuse       | Auth helper for efficient setup                         |
+| CI Integration      | GitHub Actions                                          |
+| Retry Mechanism     | 1 retry locally, 2 retries in CI                        |
 
 ---
 
@@ -52,7 +52,8 @@ saucedemo-automation/
 │   ├── BasePage.ts             # Shared page methods (navigate, getTitle, etc.)
 │   ├── LoginPage.ts            # Login page locators & actions
 │   ├── InventoryPage.ts        # Inventory/Products page locators & actions
-│   └── CartPage.ts             # Cart page locators & actions
+│   ├── CartPage.ts             # Cart page locators & actions
+│   └── CheckoutPage.ts         # Checkout flow locators & actions
 │
 ├── test-data/                  # Decoupled test data
 │   ├── login.data.ts           # Login credentials & expected messages
@@ -60,7 +61,8 @@ saucedemo-automation/
 │
 ├── tests/                      # Test specifications
 │   ├── login.spec.ts           # Login test scenarios (positive, negative, edge)
-│   └── cart.spec.ts            # Cart test scenarios (add, validate, remove)
+│   ├── cart.spec.ts            # Cart test scenarios (add, validate, remove)
+│   └── checkout.spec.ts        # Checkout test scenarios (happy path + validation)
 │
 ├── utils/
 │   ├── allure.helper.ts        # Allure step & tag helpers
@@ -146,14 +148,14 @@ PASSWORD=secret_sauce
 
 Key settings:
 
-| Setting           | Value                      | Description                   |
-| ----------------- | -------------------------- | ----------------------------- |
-| `fullyParallel` | `true`                   | All tests run in parallel     |
+| Setting         | Value                  | Description                   |
+| --------------- | ---------------------- | ----------------------------- |
+| `fullyParallel` | `true`                 | All tests run in parallel     |
 | `workers`       | `2` (local) / `4` (CI) | Concurrent workers            |
 | `retries`       | `1` (local) / `2` (CI) | Auto-retry on failure         |
-| `screenshot`    | `only-on-failure`        | Captured in Allure on failure |
-| `trace`         | `retain-on-failure`      | Trace viewer on failure       |
-| `timeout`       | `30s`                    | Per-test timeout              |
+| `screenshot`    | `only-on-failure`      | Captured in Allure on failure |
+| `trace`         | `retain-on-failure`    | Trace viewer on failure       |
+| `timeout`       | `30s`                  | Per-test timeout              |
 
 ---
 
@@ -179,6 +181,9 @@ npm run test:login
 
 # Cart tests only
 npm run test:cart
+
+# Checkout tests only
+npx playwright test --grep @checkout
 ```
 
 ### Run with browser visible
@@ -274,7 +279,7 @@ npm run format:fix
 
 ---
 
-### Linting with ESLint 
+### Linting with ESLint
 
 #### Check code quality
 
@@ -391,7 +396,7 @@ npm run allure:serve
 - **Categories** — broken down by failure type
 - **Timeline** — parallel execution visualisation
 - **Test steps** — detailed `allure.step()` breakdown for each test
-- **Tags** — `@smoke`, `@regression`, `@login`, `@cart`
+- **Tags** — `@smoke`, `@regression`, `@login`, `@cart`, `@checkout`
 - **Screenshots** — automatically captured on test failure
 - **Videos** — retained on failure
 - **Traces** — Playwright trace files on failure
@@ -404,8 +409,8 @@ npm run allure:serve
 
 #### Positive Scenarios
 
-| Test                                    | Tag             |
-| --------------------------------------- | --------------- |
+| Test                                    | Tag           |
+| --------------------------------------- | ------------- |
 | Successful login with valid credentials | `@smoke`      |
 | Login logo is displayed on login page   | `@regression` |
 | Login form elements render correctly    | `@regression` |
@@ -413,24 +418,24 @@ npm run allure:serve
 
 #### Negative Scenarios — Invalid Credentials (data-driven)
 
-| Test                             | Tag             |
-| -------------------------------- | --------------- |
+| Test                             | Tag           |
+| -------------------------------- | ------------- |
 | Wrong username, correct password | `@regression` |
 | Correct username, wrong password | `@regression` |
 | Both username and password wrong | `@regression` |
 
 #### Negative Scenarios — Empty Fields (data-driven)
 
-| Test                 | Tag             |
-| -------------------- | --------------- |
+| Test                 | Tag           |
+| -------------------- | ------------- |
 | Empty username field | `@regression` |
 | Empty password field | `@regression` |
 | Both fields empty    | `@regression` |
 
 #### Edge Cases
 
-| Test                             | Tag             |
-| -------------------------------- | --------------- |
+| Test                             | Tag           |
+| -------------------------------- | ------------- |
 | Locked out user shows error      | `@regression` |
 | Dismiss error via X button       | `@regression` |
 | Session invalidated after logout | `@regression` |
@@ -444,16 +449,16 @@ npm run allure:serve
 
 #### Add to Cart
 
-| Test                                         | Tag             |
-| -------------------------------------------- | --------------- |
+| Test                                         | Tag           |
+| -------------------------------------------- | ------------- |
 | Add single product updates badge to 1        | `@smoke`      |
 | Add multiple products reflects correct badge | `@regression` |
 | Button changes to Remove after adding        | `@regression` |
 
 #### Cart Page Validation
 
-| Test                                    | Tag             |
-| --------------------------------------- | --------------- |
+| Test                                    | Tag           |
+| --------------------------------------- | ------------- |
 | Correct product name displayed in cart  | `@smoke`      |
 | Correct product price displayed in cart | `@regression` |
 | All added products appear in cart       | `@regression` |
@@ -461,13 +466,20 @@ npm run allure:serve
 
 #### Remove from Cart
 
-| Test                                        | Tag             |
-| ------------------------------------------- | --------------- |
+| Test                                        | Tag           |
+| ------------------------------------------- | ------------- |
 | Remove product from cart page updates count | `@smoke`      |
 | Remove one of two products decrements badge | `@regression` |
 | Remove product from inventory page          | `@regression` |
 | Remove all items clears badge               | `@regression` |
 | Continue Shopping returns to inventory      | `@regression` |
+
+### Checkout Tests (`tests/checkout.spec.ts`)
+
+| Test                                                   | Tag           |
+| ------------------------------------------------------ | ------------- |
+| Complete checkout flow with valid customer information | `@smoke`      |
+| Prevent checkout when required details are missing     | `@regression` |
 
 ---
 

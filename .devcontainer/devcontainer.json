@@ -16,7 +16,12 @@
         "ms-vscode.vscode-typescript-next",
         "orta.vscode-jest",
         "Gruntfuggly.todo-tree",
-        "GitHub.copilot"
+        "GitHub.copilot",
+        "GitHub.vscode-pull-request-github",
+        "GitHub.vscode-github-actions",
+        "redhat.vscode-yaml",
+        "ms-azuretools.vscode-docker",
+        "ms-kubernetes-tools.vscode-kubernetes-tools"
       ],
       "settings": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",

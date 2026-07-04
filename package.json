@@ -21,7 +21,9 @@
     "format:fix": "prettier --write .",
     "type-check": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
-    "lint:fix": "eslint . --ext .ts,.tsx --fix"
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "pre-commit": "npm run lint && npm run type-check && npm run format:check",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
@@ -37,6 +39,7 @@
     "dotenv": "^17.4.2",
     "eslint": "^10.4.1",
     "globals": "^17.6.0",
+    "husky": "^9.1.7",
     "prettier": "^3.8.3"
   }
 }

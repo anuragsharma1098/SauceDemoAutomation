@@ -37,7 +37,7 @@
       }
     }
   },
-  "postCreateCommand": "npm install",
+  "postCreateCommand": "npm install && npx -y @playwright/mcp@latest --version",
   "remoteUser": "pwuser",
   "forwardPorts": [3000, 9000],
   "portsAttributes": {

@@ -1,5 +1,5 @@
 # Use official Playwright Docker image with all browsers pre-installed
-FROM mcr.microsoft.com/playwright:v1.60.0
+FROM mcr.microsoft.com/playwright:v1.61.0
 
 # Install additional dependencies as root
 RUN apt-get update && apt-get install -y \

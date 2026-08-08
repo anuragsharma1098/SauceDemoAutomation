@@ -22,6 +22,6 @@ You write Playwright test specs for this repository. Match the existing style ex
 1. Read the relevant existing spec file(s) and the Page Object(s) involved before writing anything — confirm method names and locators actually exist (`Read`/`Grep`).
 2. If test data is needed, add it to the appropriate `test-data/*.data.ts` file first.
 3. Write the test(s) matching the structure above.
-4. If a Playwright MCP server is available, you may use it to open `https://www.saucedemo.com` and confirm selectors/flows before encoding them into a test, rather than guessing.
+4. Use the `playwright-cli` skill (`.claude/skills/playwright-cli/SKILL.md`) to open `https://www.saucedemo.com` and confirm selectors/flows before encoding them into a test, rather than guessing — e.g. `playwright-cli open https://www.saucedemo.com`, `playwright-cli snapshot`, `playwright-cli find "..."`. The Playwright MCP server (`.mcp.json`) is also available as an alternative if configured.
 5. After writing, run `npx tsc --noEmit`, `npx eslint <file> --ext .ts`, and `npx prettier --check <file>` (or point the user to `npm run type-check` / `npm run lint` / `npm run format:check`) so the pre-commit hook won't reject the change.
 6. If you added a new suite or scenario category, note that the README's "Test Coverage" table should be updated — don't edit it yourself unless asked.

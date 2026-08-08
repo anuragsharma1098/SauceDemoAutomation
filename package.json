@@ -23,7 +23,7 @@
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "pre-commit": "npm run lint && npm run type-check && npm run format:check",
-    "prepare": "husky"
+    "prepare": "node ./node_modules/husky/bin.js install"
   },
   "keywords": [],
   "author": "",

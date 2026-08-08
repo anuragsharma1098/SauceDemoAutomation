@@ -114,7 +114,7 @@ docker-compose -f .devcontainer/docker-compose.yml down
 The dev container has been tested and verified:
 
 ```bash
-✅ Playwright 1.60.0 — All 3 browsers working
+✅ Playwright 1.62.1 noble — All 3 browsers working
 ✅ Allure CLI 2.42.0 — Report generation ready
 ✅ npm install — 104 packages, 0 vulnerabilities
 ✅ ESLint v10 — Linting active (1 warning)
@@ -127,7 +127,7 @@ The dev container has been tested and verified:
 
 | Component      | Version  | Status      | Purpose                                            |
 | -------------- | -------- | ----------- | -------------------------------------------------- |
-| **Playwright** | 1.60.0   | ✅ Verified | Official Playwright Docker image with all browsers |
+| **Playwright** | latest   | ✅ Verified | Official Playwright Docker image with all browsers |
 | Chromium       | Latest   | ✅ Included | Headless browser for automation                    |
 | Firefox        | Latest   | ✅ Included | Headless browser for automation                    |
 | WebKit         | Latest   | ✅ Included | Headless browser for automation                    |
@@ -232,7 +232,7 @@ docker-compose -f .devcontainer/docker-compose.yml up -d --build
 
 ### devcontainer.json
 
-- **Base Image:** Official Playwright image v1.60.0 (`mcr.microsoft.com/playwright:v1.60.0`)
+- **Base Image:** Official Playwright image latest (`mcr.microsoft.com/playwright:latest`)
 - **Features:** Java 17, Git
 - **Pre-installed Browsers:** Chromium, Firefox, WebKit
 - **VS Code Settings:** Prettier auto-format on save, ESLint auto-fix
@@ -242,7 +242,7 @@ docker-compose -f .devcontainer/docker-compose.yml up -d --build
 
 ### Dockerfile
 
-- Builds on the **official Playwright Docker image** v1.60.0
+- Builds on the **official Playwright Docker image** latest
 - Adds Java 17 for Allure reporting
 - Installs Allure CLI globally (v2.42.0)
 - Pre-installs global npm packages (TypeScript, npm latest)

@@ -16,7 +16,7 @@ You investigate why a Playwright test failed in this repo. Your job is root caus
 ## Diagnosis checklist
 
 1. **Real app change vs test bug**: SauceDemo is a public training site — its `data-test` attributes are assumed stable (per README) but content like prices (`test-data/products.data.ts`) can drift. If a value assertion fails, check whether the live site's data no longer matches `test-data/`.
-2. **Timing/flake**: look for races the auto-wait didn't cover — e.g. asserting on state before a navigation (`waitForURL`) or network response settles. If a Playwright MCP browser is available, reproduce the flow live and observe timing rather than guessing.
+2. **Timing/flake**: look for races the auto-wait didn't cover — e.g. asserting on state before a navigation (`waitForURL`) or network response settles. Use the `playwright-cli` skill (`.claude/skills/playwright-cli/SKILL.md`) to reproduce the flow live — `playwright-cli open`, `snapshot`, `tracing-start`/`tracing-stop`, `console`, `requests` — and observe timing rather than guessing. The Playwright MCP server (`.mcp.json`) is also available as an alternative if configured.
 3. **Locator drift**: confirm the page object's locator still matches the DOM (element removed, `data-test` renamed, element now behind another state).
 4. **Environment**: `locked_out_user` and `performance_glitch_user` have deliberately different behavior — confirm the test used the intended user from `config/env.config.ts` / `test-data/`.
 5. **Retry masking**: a test passing on retry but failing on first attempt is flaky, not fixed — report it as flaky even if the run went green.

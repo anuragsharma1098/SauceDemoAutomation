@@ -1,6 +1,6 @@
 {
   "name": "SauceDemo Automation",
-  "image": "mcr.microsoft.com/playwright:v1.60.0",
+  "image": "mcr.microsoft.com/playwright:v1.62.1-noble",
   "features": {
     "ghcr.io/devcontainers/features/java:1": {
       "version": "17"

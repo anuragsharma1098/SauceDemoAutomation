@@ -156,6 +156,39 @@ test.describe('Cart Functionality', () => {
     );
 
     test(
+      'should preserve cart contents when continuing shopping and returning to cart',
+      { tag: ['@regression', '@cart'] },
+      async ({ page }) => {
+        const { inventoryPage, cartPage } = await loginAndNavigate(page);
+
+        await allure.step('Add multiple products to cart', async () => {
+          for (const product of MULTI_PRODUCTS) {
+            await inventoryPage.addProductToCart(product.name);
+          }
+          await expect(inventoryPage.cartBadge).toHaveText(String(MULTI_PRODUCTS.length));
+        });
+
+        await allure.step('Navigate to cart and then continue shopping', async () => {
+          await inventoryPage.goToCart();
+          await expect(page).toHaveURL(/.*cart\.html/);
+          await cartPage.continueShopping();
+          await expect(page).toHaveURL(/.*inventory\.html/);
+        });
+
+        await allure.step('Return to cart and confirm the selected items remain', async () => {
+          await inventoryPage.goToCart();
+          await expect(cartPage.cartItems).toHaveCount(MULTI_PRODUCTS.length);
+          await expect(inventoryPage.cartBadge).toHaveText(String(MULTI_PRODUCTS.length));
+
+          const names = await cartPage.getProductNames();
+          for (const product of MULTI_PRODUCTS) {
+            expect(names).toContain(product.name);
+          }
+        });
+      }
+    );
+
+    test(
       'should show empty cart page when no items added',
       { tag: ['@regression', '@cart'] },
       async ({ page }) => {
